@@ -1,10 +1,13 @@
+import { CssBaseline } from '@mui/material';
+import Ticker from 'views/Ticker';
 import './App.css';
 
 function App() {
   return (
-    <div>
-      Hello world
-    </div>
+    <>
+      <CssBaseline />
+      <Ticker />
+    </>
   );
 }
 
