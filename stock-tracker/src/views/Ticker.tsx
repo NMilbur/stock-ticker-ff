@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import StockTicker from "components/StockTicker";
 import { useEffect, useState } from "react";
 import { getStockTickers } from "utils/helpers";
@@ -23,12 +23,16 @@ const Ticker = () => {
 
   return (
     <Box display="flex">
-      {
-        positions.map(
-          (position, idx) =>
-            <StockTicker key={idx} symbol={position.symbol} price={position.regularMarketPrice} />
-        )
-      }
+      <Grid container>
+        {
+          positions.map(
+            (position, idx) =>
+              <Grid item xs={3}>
+                <StockTicker key={idx} symbol={position.symbol} price={position.regularMarketPrice} />
+              </Grid>
+          )
+        }
+      </Grid>
     </Box>
   );
 };

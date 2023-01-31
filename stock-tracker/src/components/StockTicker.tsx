@@ -14,10 +14,10 @@ interface Stock {
 const StockTicker = ({ symbol = "GME", price = 0 }: StockTickerProps) => (
   <Card>
     <CardContent>
-      <Typography variant="body1">
+      <Typography variant="h5">
         {symbol}
       </Typography>
-      <Typography variant="body2">
+      <Typography variant="h4">
         {price}
       </Typography>
     </CardContent>
