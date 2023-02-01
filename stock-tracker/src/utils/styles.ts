@@ -5,3 +5,9 @@ export const DARK_THEME = createTheme({
     mode: "dark",
   },
 });
+
+export const COLORS = {
+  GOOD: {},
+  BAD: {},
+  NEUTRAL: {},
+};

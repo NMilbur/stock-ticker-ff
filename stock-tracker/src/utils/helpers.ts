@@ -8,38 +8,32 @@ type RequestOptionsType = {
   headers: any;
 }
 
+const getOptions = (url: string, params: any = {}): RequestOptionsType => ({
+  method: "GET",
+  url,
+  params,
+  headers: { ...BASE_REQUEST_HEADERS },
+});
+
+const getData = (
+  url: string,
+  params: any = {},
+  callback: (value: any) => void,
+) => {
+  const options: RequestOptionsType = getOptions(url, params);
+  axios.request(options).then((response) => callback(response.data));
+};
+
 type getSummaryType = {
   callback: (value: any) => void;
   symbol?: string;
 }
 
-export const getSummary = async ({ callback, symbol }: getSummaryType) => {
-  const params = { region: "US", symbol };
- 
-  const options: RequestOptionsType = {
-    method: "GET",
-    url: symbol ? ENDPOINTS.summaryOne : ENDPOINTS.summaryAll,
-    params,
-    headers: { ...BASE_REQUEST_HEADERS },
-  };
+export const getSummary = async ({ callback, symbol }: getSummaryType) => 
+  getData(symbol ? ENDPOINTS.summaryOne : ENDPOINTS.summaryAll, { region: "US", symbol }, callback);
 
-  axios.request(options).then((response) => callback(response.data));
-};
+export const getPopularWatchlists = async (setPopularWatchlists: (value: any) => void) =>
+  getData(ENDPOINTS.popularWatchlists, {}, setPopularWatchlists);
 
-export const getStockTickers = async ({ callback }: { callback: (value: any) => void }) => {
-  let options: RequestOptionsType = {
-    method: "GET",
-    url: ENDPOINTS.popularWatchlists,
-    headers: { ...BASE_REQUEST_HEADERS },
-  };
-
-  axios.request(options).then((response) => {
-    const { userId, pfId } = response.data.finance.result[0].portfolios[0];
-    options.params = { userId, pfId };
-    options.url = ENDPOINTS.watchlistDetail;
-
-    axios.request(options).then((res) => {
-      callback(res.data);
-    })
-  }); 
-}
+export const getWatchListDetail = async (userId: string, pfId: string, setWatchlist: (value: any) => void) =>
+  getData(ENDPOINTS.watchlistDetail, { userId, pfId }, setWatchlist);
