@@ -7,7 +7,6 @@ export const DARK_THEME = createTheme({
 });
 
 export const COLORS = {
-  GOOD: {},
-  BAD: {},
-  NEUTRAL: {},
+  POSITIVE: "#127a02",
+  NEGATIVE: "#8c0410",
 };

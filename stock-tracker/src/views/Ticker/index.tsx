@@ -39,9 +39,15 @@ const Ticker = () => {
       </Box>
       <Grid container>
         {positions &&
-          positions.map(({ symbol, regularMarketPrice }, idx) => (
+          positions.map(({ longName, symbol, regularMarketChangePercent, regularMarketPrice }, idx) =>
+            (
               <Grid item xs={3} key={idx}>
-                <Stock symbol={symbol} price={regularMarketPrice} />
+                <Stock
+                  longName={longName}
+                  symbol={symbol}
+                  percentChange={regularMarketChangePercent}
+                  price={regularMarketPrice}
+                />
               </Grid>
             ))
         }
